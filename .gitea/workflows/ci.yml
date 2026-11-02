@@ -1,8 +1,8 @@
 name: CI
 
-# Gitea is the primary forge (GitHub is a read-only push mirror kept so others can read the project). The job below is the required
-# status check on main ("CI / check (pull_request)"): the ESPHome configuration must validate (`esphome config`, no compile, no
-# hardware) against a pinned ESPHome release. Bump the pin deliberately when you want the sample to track a newer ESPHome.
+# Gitea is the only home of this repo (the GitHub copy is archived and frozen). The job below is the required status check on main
+# ("CI / check (pull_request)"): the ESPHome configuration must validate (`esphome config`, no compile, no hardware) against a pinned
+# ESPHome release. Bump the pin deliberately when you want the sample to track a newer ESPHome.
 
 on:
   pull_request:

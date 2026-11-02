@@ -1,6 +1,6 @@
 # Zeversolar RS485 to ESPHome Gateway
 
-> Development happens on a private forge; this repository is a read-only mirror. Releases are published here.
+> **Archived.** This project now lives only on a private forge; this GitHub copy is frozen as of 2 Nov 2026 and will not be updated.
 
 This project intercepts the internal RS485 communication of a Zeversolar inverter (TL3000 series) and exposes all solar production, DC/AC diagnostics, and grid data to Home Assistant via ESPHome. 
 
