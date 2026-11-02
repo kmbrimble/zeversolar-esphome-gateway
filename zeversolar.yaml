@@ -18,7 +18,10 @@ logger:
   level: DEBUG
 
 api:
-  password: ""
+  # ESPHome removed API passwords in 2026.1.0: encrypt the native API with a key instead
+  # (generate one with `openssl rand -base64 32` and put it in your secrets.yaml as api_encryption_key).
+  encryption:
+    key: !secret api_encryption_key
 
 ota:
   - platform: esphome

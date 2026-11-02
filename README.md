@@ -1,5 +1,7 @@
 # Zeversolar RS485 to ESPHome Gateway
 
+> Development happens on a private forge; this repository is a read-only mirror. Releases are published here.
+
 This project intercepts the internal RS485 communication of a Zeversolar inverter (TL3000 series) and exposes all solar production, DC/AC diagnostics, and grid data to Home Assistant via ESPHome. 
 
 ## Hardware Components
@@ -66,7 +68,10 @@ logger:
   level: DEBUG
 
 api:
-  password: ""
+  # ESPHome removed API passwords in 2026.1.0: encrypt the native API with a key instead
+  # (generate one with `openssl rand -base64 32` and put it in your secrets.yaml as api_encryption_key).
+  encryption:
+    key: !secret api_encryption_key
 
 ota:
   - platform: esphome

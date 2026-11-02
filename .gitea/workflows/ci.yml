@@ -1,0 +1,33 @@
+name: CI
+
+# Gitea is the primary forge (GitHub is a read-only push mirror kept so others can read the project). The job below is the required
+# status check on main ("CI / check (pull_request)"): the ESPHome configuration must validate (`esphome config`, no compile, no
+# hardware) against a pinned ESPHome release. Bump the pin deliberately when you want the sample to track a newer ESPHome.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+env:
+  ESPHOME_VERSION: "2026.10.1"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+
+      - name: Install ESPHome
+        run: |
+          set -euo pipefail
+          pip3 install -q --break-system-packages uv
+          uv venv -q --python 3.13 .venv
+          uv pip install -q --python .venv/bin/python "esphome==${ESPHOME_VERSION}"
+
+      # The sample reads its API encryption key from secrets.yaml, which is not in the repo: give the check a throwaway one.
+      - name: Validate the ESPHome configuration
+        run: |
+          set -euo pipefail
+          printf 'api_encryption_key: "%s"\n' "$(printf '0123456789abcdef0123456789abcdef' | base64)" > secrets.yaml
+          .venv/bin/esphome config zeversolar.yaml
